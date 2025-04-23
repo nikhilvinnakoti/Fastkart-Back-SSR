@@ -1,1 +1,16 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 18
+    commands:
+      - echo Installing backend dependencies...
+      - npm install
+artifacts:
+  files:
+    - **/*
+    - scripts/*
+    - appspec.yml
+  discard-paths: no
 
