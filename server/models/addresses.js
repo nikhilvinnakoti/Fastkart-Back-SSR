@@ -1,24 +1,22 @@
 const mongoose = require('mongoose');
 
 const AddressSchema = new mongoose.Schema({
-    _id: Number,
-    title: { type: String, required: true },
-    user_id: { type: Number},
-    street: { type: String, required: true },
-    city: { type: String, required: true },
-    pincode: { type: String, required: true },
-    is_default: { type: Number, default: 0 },
+    user_id: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+    title: { type: String },
+    street: { type: String },
+    city: { type: String },
+    pincode: { type: String },
     country_code: { type: String },
-    phone: { type: Number, required: true },
-    country_id: { type: SVGAnimatedNumberList},
-    state_id: { type: Number, required: true },
+    phone: { type: Number },
+    country_id: { type: Number},
+    state_id: { type: Number },
     country: {
         id: { type: Number },
         name: { type: String }
     },
     state: {
-        id: { type: Number, required: true },
-        name: { type: String, required: true },
+        id: { type: Number},
+        name: { type: String  },
         country_id: { type: Number }
     }
 });
