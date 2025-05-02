@@ -24,18 +24,19 @@ phases:
       - cp -R server/* /home/ec2-user/fastkart/backend/
       - echo "Backend files copied successfully."
 
-      # Ensure scripts directory exists before copying
       - mkdir -p /home/ec2-user/fastkart/backend/scripts
-      - cp -R scripts/* /home/ec2-user/fastkart/backend/scripts/  # Copying the scripts folder
+      - cp -R scripts/* /home/ec2-user/fastkart/backend/scripts/
       - echo "Scripts copied successfully."
 
 artifacts:
   base-directory: .
   files:
-    - server/**/*  # Copy everything from the server directory
-    - scripts/*.sh  # Copy all the shell scripts from the scripts directory
-    - '!server/package-lock.json'  # Exclude the package-lock.json to prevent issues
+    - appspec.yml                 # ✅ Include the appspec file at root
+    - server/**/*                 # Include all backend files
+    - scripts/*.sh                # Include shell scripts
+    - '!server/package-lock.json' # Exclude this file
   discard-paths: no
+
 
 
 
