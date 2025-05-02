@@ -7,10 +7,23 @@ phases:
     commands:
       - echo Installing backend dependencies...
       - npm install
+      - echo Making scripts executable...
+      - chmod +x scripts/*.sh
+
+  build:
+    commands:
+      - echo No build step required for backend, skipping...
+
+post_build:
+  commands:
+    - echo Copying backend files to deployment folder...
+    - rm -rf /home/ec2-user/fastkart/backend/*
+    - cp -R * /home/ec2-user/fastkart/backend
+
 artifacts:
   files:
-    - **/*
-    - scripts/*
-    - appspec.yml
+    - '**/*'
+    - '!package-lock.json'
   discard-paths: no
+
 
