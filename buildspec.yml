@@ -22,8 +22,12 @@ phases:
       - if [ -d /home/ec2-user/fastkart/backend ]; then rm -rf /home/ec2-user/fastkart/backend/*; fi
       - mkdir -p /home/ec2-user/fastkart/backend
       - cp -R server/* /home/ec2-user/fastkart/backend/
+      - echo "Backend files copied successfully."
+
+      # Ensure scripts directory exists before copying
+      - mkdir -p /home/ec2-user/fastkart/backend/scripts
       - cp -R scripts/* /home/ec2-user/fastkart/backend/scripts/  # Copying the scripts folder
-      - echo "Files copied successfully."
+      - echo "Scripts copied successfully."
 
 artifacts:
   base-directory: .
@@ -32,6 +36,7 @@ artifacts:
     - scripts/*.sh  # Copy all the shell scripts from the scripts directory
     - '!server/package-lock.json'  # Exclude the package-lock.json to prevent issues
   discard-paths: no
+
 
 
 
