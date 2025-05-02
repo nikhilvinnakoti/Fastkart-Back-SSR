@@ -19,8 +19,10 @@ phases:
 post_build:
   commands:
     - echo Copying backend files to deployment folder...
+    - ls -l server  # List files in the server directory to ensure it's there
     - rm -rf /home/ec2-user/fastkart/backend/*
     - cp -R server/* /home/ec2-user/fastkart/backend/
+    - echo "Files copied successfully"
 
 artifacts:
   base-directory: server
@@ -28,6 +30,7 @@ artifacts:
     - '**/*'
     - '!package-lock.json'
   discard-paths: no
+
 
 
 
