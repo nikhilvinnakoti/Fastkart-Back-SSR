@@ -1,28 +1,29 @@
-version: 0.2
+version: 0.0
+os: linux
 
-phases:
-  install:
-    runtime-versions:
-      nodejs: 18
-    commands:
-      - echo Installing backend dependencies...
-      - npm install
-      - echo Making scripts executable...
-      - chmod +x scripts/*.sh
+files:
+  - source: /
+    destination: /home/ec2-user/fastkart/backend
+    overwrite: true
 
-  build:
-    commands:
-      - echo No build step required for backend, skipping...
+hooks:
+  ApplicationStop:
+    - location: scripts/stop.sh
+      timeout: 600
+      runas: ec2-user
 
-post_build:
-  commands:
-    - echo Copying backend files to deployment folder...
-    - rm -rf /home/ec2-user/fastkart/backend/*
-    - cp -R * /home/ec2-user/fastkart/backend
+  BeforeInstall:
+    - location: scripts/cleanup.sh
+      timeout: 600
+      runas: ec2-user
 
-artifacts:
-  files:
-    - '**/*'
-    - '!package-lock.json'
-  discard-paths: no
+    - location: scripts/install.sh
+      timeout: 600
+      runas: ec2-user
+
+  ApplicationStart:
+    - location: scripts/start.sh
+      timeout: 600
+      runas: ec2-user
+
 
