@@ -5,31 +5,34 @@ phases:
     runtime-versions:
       nodejs: 18
     commands:
-      - echo Installing backend dependencies...
+      - echo "Installing backend dependencies..."
       - cd server
       - npm install
-      - echo Making scripts executable...
-      - chmod +x scripts/*.sh || echo "No scripts to chmod"
       - cd ..
+      - echo "Making scripts executable..."
+      - chmod +x scripts/*.sh || echo "No scripts to chmod"
 
   build:
     commands:
-      - echo No build step required for backend, skipping...
+      - echo "No build step required for backend, skipping..."
 
-post_build:
-  commands:
-    - echo Copying backend files to deployment folder...
-    - ls -l server  # List files in the server directory to ensure it's there
-    - rm -rf /home/ec2-user/fastkart/backend/*
-    - cp -R server/* /home/ec2-user/fastkart/backend/
-    - echo "Files copied successfully"
+  post_build:
+    commands:
+      - echo "Copying backend files and scripts to deployment folder..."
+      - if [ -d /home/ec2-user/fastkart/backend ]; then rm -rf /home/ec2-user/fastkart/backend/*; fi
+      - mkdir -p /home/ec2-user/fastkart/backend
+      - cp -R server/* /home/ec2-user/fastkart/backend/
+      - cp -R scripts/* /home/ec2-user/fastkart/backend/scripts/  # Copying the scripts folder
+      - echo "Files copied successfully."
 
 artifacts:
-  base-directory: server
+  base-directory: .
   files:
-    - '**/*'
-    - '!package-lock.json'
+    - server/**/*  # Copy everything from the server directory
+    - scripts/*.sh  # Copy all the shell scripts from the scripts directory
+    - '!server/package-lock.json'  # Exclude the package-lock.json to prevent issues
   discard-paths: no
+
 
 
 
