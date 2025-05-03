@@ -17,16 +17,13 @@ const jwt = require("jsonwebtoken");
 const mongoose = require("mongoose");
 // const ObjectId = mongoose.Types.ObjectId;
 
-const db = "mongodb://localhost:27017/fastkart";
+const db = "mongodb://localhost:27017/?authSource=fastkart";
 
-mongoose
-  .connect(db)
-  .then(() => {
-    console.log("Connected to MongoDB");
-  })
-  .catch((err) => {
-    console.log(err);
-  });
+const mongoURI = "mongodb://localhost:27017/?authSource=fastkart";
+mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => console.log('MongoDB Connected'))
+  .catch((err) => console.log('Error connecting to MongoDB:', err));
+
 router.get("/", (req, res) => {
   res.send("From Fastkart APIs");
 });
