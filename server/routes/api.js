@@ -21,8 +21,6 @@ const db = "mongodb+srv://nikhil_vinnakoti:nikhil@fastkart.0gzrk.mongodb.net/?re
 
 mongoose
   .connect(db, {
-  useNewUrlParser: true,              // optional if using Mongoose >=6
-  useUnifiedTopology: true,           // optional if using Mongoose >=6
   serverSelectionTimeoutMS: 30000     // wait up to 30 seconds
 })
   .then(() => {
