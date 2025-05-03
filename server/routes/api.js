@@ -20,7 +20,11 @@ const mongoose = require("mongoose");
 const db = "mongodb+srv://nikhil_vinnakoti:nikhil@fastkart.0gzrk.mongodb.net/?retryWrites=true&w=majority&appName=Fastkart";
 
 mongoose
-  .connect(db)
+  .connect(db, {
+  useNewUrlParser: true,              // optional if using Mongoose >=6
+  useUnifiedTopology: true,           // optional if using Mongoose >=6
+  serverSelectionTimeoutMS: 30000     // wait up to 30 seconds
+})
   .then(() => {
     console.log("Connected to MongoDB");
   })
