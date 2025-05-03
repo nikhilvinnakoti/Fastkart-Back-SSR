@@ -19,10 +19,14 @@ const mongoose = require("mongoose");
 
 const db = "mongodb://localhost:27017/?authSource=fastkart";
 
-const mongoURI = "mongodb://localhost:27017/?authSource=fastkart";
-mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => console.log('MongoDB Connected'))
-  .catch((err) => console.log('Error connecting to MongoDB:', err));
+mongoose
+  .connect(db)
+  .then(() => {
+    console.log("Connected to MongoDB");
+  })
+  .catch((err) => {
+    console.log(err);
+  });
 
 router.get("/", (req, res) => {
   res.send("From Fastkart APIs");
