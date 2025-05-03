@@ -17,7 +17,7 @@ const jwt = require("jsonwebtoken");
 const mongoose = require("mongoose");
 // const ObjectId = mongoose.Types.ObjectId;
 
-const db = "mongodb://localhost:27017/?authSource=fastkart";
+const db = "mongodb://127.0.0.1:27017/?authSource=fastkart";
 
 mongoose
   .connect(db)
